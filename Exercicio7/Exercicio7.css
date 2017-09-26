@@ -1,0 +1,74 @@
+.container {
+   width: 300px;
+   height: 300px;
+   position: relative;
+}
+.smileBase{
+  display: block;
+  width: 200px;
+  height: 200px;
+  background-color: yellow;
+  border: solid;
+  border-width: 2px;
+  border-radius: 100px;
+  position: relative;
+
+}
+.smileOlhoEsquerdo{
+  display: block;
+  width: 15px;
+  height: 15px;
+  background-color: black;
+  border: solid;
+  border-width: 2px;
+  border-radius: 100px;
+  position: absolute;
+  top: 65px;
+  left: 50px;
+}
+.smileOlhoDireito{
+  display: block;
+  width: 15px;
+  height: 15px;
+  background-color: black;
+  border: solid;
+  border-width: 2px;
+  border-radius: 100px;
+  position: absolute;
+  top: 65px;
+  right: 50px;
+}
+.smileBoca{
+  display: block;
+  width: 50px;
+  height: 2px;
+  background-color: black;
+  border: solid;
+  border-width: 2px;
+  position: absolute;
+  bottom: 50px;
+  left: 75px;
+}
+.smileBase:hover .smileBoca{
+  display: block;
+  width: 50px;
+  height: 40px;
+  background-color: red;
+  border: solid;
+  border-width: 2px;
+  position: absolute;
+  bottom: 50px;
+  left: 75px;
+  border-radius: 100px;
+}
+.message{
+  display: none;
+
+}
+.smileBase:active .message{
+  display: inline-block;
+  position: absolute;
+  border-width: 1px;
+  border:solid;
+  left: 200px;
+}
