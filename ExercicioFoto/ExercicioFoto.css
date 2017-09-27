@@ -26,7 +26,7 @@
 .box {
   position: float;
   height: 85%;
-  width: 30%;
+  width: 20%;
   background-color: blue;
   border: solid;
   float: left;
@@ -47,8 +47,9 @@
 .text-container{
   margin: 1%;
   display: inline-block;
-  width: 22%;
+  width: 16%;
   height: 25%;
+  text-align: justify;
 }
 html, body {
     height:100%;
