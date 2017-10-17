@@ -11,32 +11,38 @@ class Biblioteca
   attr_accessor :livros
 
   def initialize
-    @livros
+    @livros=[]
   end
 
-  def self.adciona_livro(nome, autor, codigo)
+  def adciona_livro(nome, autor, codigo)
     livro = Livro.new(nome, autor, codigo)
     livros << livro
   end
 
-  def self.remove_livro(codigo)
-    i = 0
-    livros << "fim"
-    while livros[i] != "fim" do
-      if (livros[i].codigo == codigo) then
-        livros.delete_at(i)
+  def remove_livro(codigo)
+    flag = 0
+    begin
+      livros.each do |livro|
+        if livro.codigo == codigo then
+          livros.delete(livro)
+          puts "Livro #{livro.nome} excluido"
+          flag = 1
+        end
       end
-      i+=1
-    end
-    livros.delete("fim")
+      if (flag == 0) then
+        raise 'Livro nao encontrado'
+      end
+      rescue
+        puts "Livro non ecziste!!!"
+      end
   end
 
-  def self.retorna_livros
+  def retorna_livros
       return livros
     end
 
-  def self.retorna_numero_de_livros
-    return livros.rindex(livros.last) + 1
+  def retorna_numero_de_livros
+    return livros.rindex(livros.last)
   end
 end
 
@@ -46,7 +52,45 @@ class InterfaceUsuario
   attr_accessor :biblioteca
 
   def initialize
-    biblioteca = Biblioteca.new
+    @biblioteca = Biblioteca.new
+  end
+
+  def chama_adciona_livro
+    puts("Insira o nome do livro:")
+    nome = gets.chomp
+    puts("Insira o autor do livro:")
+    autor = gets.chomp
+    puts("Insira o codigo do livro:")
+    codigo = gets.to_i
+    @biblioteca.adciona_livro(nome, autor, codigo)
+  end
+
+  def chama_remove_livro
+    puts("Insira o codigo do livro a ser retirado:")
+    codigo = gets.to_i
+    @biblioteca.remove_livro(codigo)
+  end
+
+  def lista_livros
+    if @biblioteca.livros == [] then
+      puts "Não há livros na biblioteca"
+    end
+    @biblioteca.livros.each { |livro| print "Nome: ", livro.nome, " Autor: ", livro.autor, " Código: ", livro.codigo, "\n" }
+  end
+
+  def mostra_numero_de_livros
+    num = @biblioteca.retorna_numero_de_livros
+    if num == nil then
+      num = -1
+    end
+    num += 1
+    if num == 0
+      puts("No momento não há livros na biblioteca")
+    elsif num == 1
+      puts("No momento há 1 livro na biblioteca")
+    else
+      puts("No momento há #{num} livros na biblioteca")
+    end
   end
 
   def display_menu
@@ -56,7 +100,7 @@ class InterfaceUsuario
       puts("1. Para adcionar um livro")
       puts("2. Para remover um livro")
       puts("3. Para ver uma lista dos livros")
-      puts("4. Para ver quantos livros foram adcionados")
+      puts("4. Para ver a quantidade de livros na biblioteca")
       puts("5. Para sair")
       opcao = gets.to_i
       case opcao
@@ -75,41 +119,6 @@ class InterfaceUsuario
       end
     end
   end
-
-  def chama_adciona_livro
-    puts("Insira o nome do livro:")
-    nome = gets.chomp
-    puts("Insira o autor do livro:")
-    autor = gets.chomp
-    puts("Insira o codigo do livro:")
-    codigo = gets.to_i
-    biblioteca.adciona_livro(nome, autor, codigo)
-  end
-
-  def chama_remove_livro
-    puts("Insira o nome do livro a ser retirado:")
-    nome = gets.chomp
-    puts("Insira o codigo do livro a ser retirado:")
-    codigo = gets.to_i
-    biblioteca.remove_livro(nome, codigo)
-    puts("O livro #{nome} foi retirado")
-  end
-
-  def lista_livros
-    biblioteca.livros.each { |livro| print livro, "\n" }
-  end
-
-  def mostra_numero_de_livros
-    num = biblioteca.retorna_numero_de_livros
-    if num == 0
-      puts("No momento não há livros na biblioteca")
-    elsif num == 1
-      puts("No momento há 1 livro na biblioteca")
-    else
-      puts("No momento há #{num} livros na biblioteca")
-    end
-  end
 end
-
 interface = InterfaceUsuario.new
 interface.display_menu
